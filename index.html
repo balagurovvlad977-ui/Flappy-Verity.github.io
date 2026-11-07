@@ -6,7 +6,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="author" content="Villager0090818">
-   <title>Test web-site</title>
+   <title>Flappy-Verity</title>
 <style>
      :root
      {
@@ -81,10 +81,11 @@
 
      footer
      {
+          justify-content:center;
           align-items:center;
           bottom:-5vh;
           position:absolute;
-
+          flex-direction:column;
           font-family:impact;
           font-size:8vh;
           text-shadow:var(--text--shadow);
@@ -204,12 +205,12 @@
           
           header
           {
-               top:-5vh;
+               font-size:3vh;
           }
 
           footer
           {
-               bottom:-7.4vh;
+               bottom:-0vh;
           }
 
 
@@ -228,6 +229,7 @@
           {
                display:none;
           }
+          
      }
 
 
@@ -299,6 +301,7 @@
 
      let y = 50;
      let click = false;
+     const jump_button = document.getElementById('jump_but');
      const bird = document.getElementById('bird');
      const score = document.getElementById('score');
      let time = 0;

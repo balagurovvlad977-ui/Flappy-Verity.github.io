@@ -246,6 +246,14 @@
      {
           background-color:#555;
      }
+
+    iframe
+   {
+        right:0;
+	width:20vw;
+	height:70vh;
+	filter:blur(10px);
+   }
      
 
      .jump_play
@@ -315,6 +323,8 @@
           {
                display:none;
           }
+	
+	  iframe{display:none}
           
      }
 
@@ -389,6 +399,10 @@
 
 
 
+<iframe  muted autoplay loop playsinline src="verity.mp4"></iframe>
+
+
+
 
 
 
@@ -421,7 +435,7 @@
 
 
      music.loop = true;
-     music.volume = 0.1;
+     music.volume = 0.3;
      airWallSpawn();
      start();
      

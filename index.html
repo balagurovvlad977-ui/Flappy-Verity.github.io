@@ -220,6 +220,32 @@
           background-color:#000;
           background-image:url(https://wallpaper.forfun.com/fetch/10/106b4effcf0694d43bfdde9fe944d25b.jpeg?h=1200&r=0.5);
      }
+
+
+     #blur
+     {
+          position:absolute;
+          width:100%;
+          height:100%;
+          z-index:5;
+          color:red;
+          backdrop-filter:blur(2px);
+     }
+
+     
+     #pause
+     {
+          border-radius:50%;
+          border:1px black solid;
+          background-color:#fff;
+          width:5vh;
+          height:5vh;
+     }
+
+     #pause:active
+     {
+          background-color:#555;
+     }
      
 
      .jump_play
@@ -307,9 +333,12 @@
 <body>
 
 
-
+<div id="blur">
+     <h1>Нажмите чтобы продолжить</h1>
+</div>
 
 <header>
+     <button id="pause" onclick="pauseFunction();">||</button>
      <h1>F l a p p y | V e r i t y</h1>
 </header>
 
@@ -368,6 +397,10 @@
 
 <script>
 
+     const music = new Audio('verity-song.mp3');
+     const but_pause = document.getElementById('pause');
+     let pause = false;
+     const start_display = document.getElementById('blur');
      let die = false;
      let play = true;
      let step = 0.004;
@@ -385,6 +418,10 @@
      const score = document.getElementById('score');
      const style = document.documentElement.style;
      let time = 0;
+
+
+     music.loop = true;
+     music.volume = 0.1;
      airWallSpawn();
      start();
      
@@ -395,10 +432,22 @@
                moveBarrier();
                scoreUpdate();
                birdYReplace();
-          }else{
+          }else if(!pause){
                start();
           }
      },8);
+
+
+
+
+     document.addEventListener('visibilitychange',()=>{
+          if(document.hidden)
+          pauseFunction();
+     });
+
+    document.addEventListener('click', () => {
+          music.play();
+    }, { once: true });
 
 
 
@@ -420,8 +469,8 @@
 
 
 
-          document.addEventListener('mousedown',()=>{
-               jump();
+          document.addEventListener('mousedown',(e)=>{
+               if(e.target.id !== "pause")jump();
           });
 
 
@@ -453,7 +502,7 @@
                style.setProperty('--scaleX',"0.6");
           }
 
-          if ( yBird >= 83) yBird = 83;
+          if ( yBird >= 83 ) start();
 
           const y_vh = yBird + "%";
 
@@ -486,7 +535,7 @@
 
      function airWallSpawn()
      {
-          const random = Math.random() * (100 - yBird);
+          const random = Math.random() * 80;
           let down = random;
           let top = 100 - down - birdSize;
           
@@ -504,7 +553,6 @@
                {
                     airWallSpawn();
                     xWall = 0;
-                    go = false; 
                }
 
                const xWallProc = xWall + "%";
@@ -539,14 +587,36 @@
 
      function start()
      {
+          start_display.style.display = "";
           play = false;
           document.addEventListener('click',()=>{
                time = 0;
                xWall = 0;
                airWallSpawn();
+               start_display.style.display = "none";
                play = true;
           },{once:true});
      }
+
+
+
+
+
+     function pauseFunction()
+     {
+          pause = !pause;
+          if(pause){
+               but_pause.textContent = "▶";
+          }else{
+               but_pause.textContent = "||";
+          }
+
+          play = !play;
+     }
+
+
+
+
 
 
 </script>
